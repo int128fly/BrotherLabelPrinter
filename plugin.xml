@@ -9,7 +9,7 @@
     <platform name="android">
         <config-file parent="/*" target="res/xml/config.xml">
             <feature name="BrotherLabelPrinter">
-                <param name="android-package" value="cordova-plugin-brother-label-printer.BrotherLabelPrinter" />
+                <param name="android-package" value="cordova.plugin.brother.label.printer.BrotherLabelPrinter" />
             </feature>
         </config-file>
         <config-file parent="/*" target="AndroidManifest.xml"></config-file>
