@@ -1,4 +1,4 @@
-package cordova-plugin-brother-label-printer;
+package cordova.plugin.brother.label.printer;
 
 import org.apache.cordova.CordovaPlugin;
 import org.apache.cordova.CallbackContext;
