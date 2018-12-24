@@ -1,4 +1,4 @@
-package cordova.plugin.brother.label.printer;
+package com.marketucan.plugins;
 
 import org.apache.cordova.CordovaPlugin;
 import org.apache.cordova.CallbackContext;

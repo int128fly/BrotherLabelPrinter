@@ -3,16 +3,22 @@
     xmlns="http://apache.org/cordova/ns/plugins/1.0"
     xmlns:android="http://schemas.android.com/apk/res/android">
     <name>BrotherLabelPrinter</name>
+
+    <asset src="www/BrotherLabelPrinter.js" target="js/BrotherLabelPrinter.js"/>
+
+    <engines>
+        <engine name="cordova" version=">=3.4.0"/>
+    </engines>
+
     <js-module name="BrotherLabelPrinter" src="www/BrotherLabelPrinter.js">
         <clobbers target="cordova.plugins.BrotherLabelPrinter" />
     </js-module>
     <platform name="android">
         <config-file parent="/*" target="config.xml">
             <feature name="BrotherLabelPrinter">
-                <param name="android-package" value="cordova.plugin.brother.label.printer.BrotherLabelPrinter" />
+                <param name="android-package" value="com.marketucan.plugins.BrotherLabelPrinter" />
             </feature>
         </config-file>
-        <config-file parent="/*" target="AndroidManifest.xml"></config-file>
-        <source-file src="src/android/BrotherLabelPrinter.java" target-dir="src/cordova-plugin-brother-label-printer/BrotherLabelPrinter" />
+        <source-file src="src/android/BrotherLabelPrinter.java" target-dir="src/com/marketucan/plugins/" />
     </platform>
 </plugin>
