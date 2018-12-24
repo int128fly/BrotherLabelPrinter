@@ -7,7 +7,7 @@
         <clobbers target="cordova.plugins.BrotherLabelPrinter" />
     </js-module>
     <platform name="android">
-        <config-file parent="/*" target="res/xml/config.xml">
+        <config-file parent="/*" target="config.xml">
             <feature name="BrotherLabelPrinter">
                 <param name="android-package" value="cordova.plugin.brother.label.printer.BrotherLabelPrinter" />
             </feature>
