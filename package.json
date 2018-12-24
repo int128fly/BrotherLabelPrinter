@@ -1,7 +1,7 @@
 {
   "name": "brotherlabelprinter",
   "version": "1.0.0",
-  "description": "",
+  "description": "Bridge between brother label printer API and your app",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -10,7 +10,13 @@
     "type": "git",
     "url": "git+https://github.com/int128fly/BrotherLabelPrinter.git"
   },
-  "author": "",
+  "keywords": [
+    "brother",
+    "printer",
+    "label",
+    "printer"
+  ],
+  "author": "Mathias Beaulieu-Duncan",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/int128fly/BrotherLabelPrinter/issues"
