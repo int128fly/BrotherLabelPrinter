@@ -1,18 +1,19 @@
 {
   "name": "brotherlabelprinter",
   "version": "1.0.0",
-  "description": "Bridge between brother sdk for label printer and phone apps",
+  "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [
-    "brother",
-    "printer",
-    "label",
-    "label",
-    "printer"
-  ],
-  "author": "Mathias",
-  "license": "ISC"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/int128fly/BrotherLabelPrinter.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/int128fly/BrotherLabelPrinter/issues"
+  },
+  "homepage": "https://github.com/int128fly/BrotherLabelPrinter#readme"
 }
