@@ -162,8 +162,16 @@ public class BrotherLabelPrinter extends CordovaPlugin {
                         int netPrinterCount = netPrinters.length;
 
                         ArrayList<Map> netPrintersList = new ArrayList<Map>();
+                        JSONArray args = new JSONArray();
                         for (int i = 0; i < netPrinterCount; i++) {
                             Map<String, String> netPrinter = new HashMap<String, String>();
+
+                            JSONObject jsonPrinter = new JSONObject();
+                            jsonPrinter.put("ipAddress", netPrinters[i].ipAddress);
+                            jsonPrinter.put("macAddress", netPrinters[i].macAddress);
+                            jsonPrinter.put("serialNumber", netPrinters[i].serNo);
+                            jsonPrinter.put("nodeName", netPrinters[i].nodeName);
+                            args.add(jsonPrinter);
 
                             netPrinter.put("ipAddress", netPrinters[i].ipAddress);
                             netPrinter.put("macAddress", netPrinters[i].macAddress);
@@ -173,9 +181,6 @@ public class BrotherLabelPrinter extends CordovaPlugin {
                             netPrintersList.add(netPrinter);
                         }
 
-                        JSONArray args = new JSONArray();
-
-                        args.set(netPrintersList);
 
                         PluginResult result;
                         result = new PluginResult(PluginResult.Status.OK, args);
