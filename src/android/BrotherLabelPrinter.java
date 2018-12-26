@@ -89,6 +89,8 @@ public class BrotherLabelPrinter extends CordovaPlugin {
                         result = new PluginResult(PluginResult.Status.OK, args);
                         callback.sendPluginResult(result);
                     } catch(Exception exception) {
+                        exception.printStackTrace();
+
                         PluginResult result;
                         result = new PluginResult(PluginResult.Status.ERROR, exception.getMessage());
                         callback.sendPluginResult(result);
