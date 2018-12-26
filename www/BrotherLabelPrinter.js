@@ -1,6 +1,9 @@
 module.exports = {
-    coolMethod: function (arg0, success, error) {
-        console.log('got into plugin call');
-        cordova.exec(success, error, 'BrotherLabelPrinter', 'coolMethod', [arg0]);
+    setPrinterModel: function (model, success, error) {
+        cordova.exec(success, error, 'BrotherLabelPrinter', 'SetPrinterModel', [model]);
+    },
+
+    getNetworkedPrinters: function (success, error) {
+        cordova.exec(success, error, 'BrotherLabelPrinter', 'GetNetworkedPrinters');
     }
 };

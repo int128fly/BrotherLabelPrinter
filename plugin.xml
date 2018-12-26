@@ -19,6 +19,19 @@
                 <param name="android-package" value="com.marketucan.plugins.BrotherLabelPrinter" />
             </feature>
         </config-file>
+
         <source-file src="src/android/BrotherLabelPrinter.java" target-dir="src/com/marketucan/plugins/" />
+        <source-file src="src/android/libs/BrotherPrintLibrary.jar" target-dir="libs" />
+        <source-file src="src/android/libs/armeabi" target-dir="libs" />
+
+        <config-file target="AndroidManifest.xml" parent="/manifest">
+            <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+            <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+            <uses-permission android:name="android.permission.INTERNET"/>
+            <uses-permission android:name="android.permission.USB" />
+            <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+            <uses-feature android:name="android.hardware.usb" android:required="true" />
+        </config-file>
     </platform>
 </plugin>
