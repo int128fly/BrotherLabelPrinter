@@ -68,7 +68,7 @@ public class BrotherLabelPrinter extends CordovaPlugin {
         }
     }
 
-    private void print(String ipAddress, String macAddress, String message, final callbackContext callback) {
+    private void print(String ipAddress, String macAddress, String message, final CallbackContext callback) {
         final Bitmap bitmap = bmpFromBase64(message);
 
         cordova.getThreadPool().execute(
