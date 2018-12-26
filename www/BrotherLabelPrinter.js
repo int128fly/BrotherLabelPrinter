@@ -1,9 +1,15 @@
 module.exports = {
-    setPrinterModel: function (model, success, error) {
-        cordova.exec(success, error, 'BrotherLabelPrinter', 'setPrinterModel', [model]);
+    getNetworkedPrinters: function (model, success, error) {
+        cordova.exec(success, error, 'BrotherLabelPrinter', 'getNetworkedPrinters', [
+            model
+        ]);
     },
 
-    getNetworkedPrinters: function (success, error) {
-        cordova.exec(success, error, 'BrotherLabelPrinter', 'getNetworkedPrinters');
+    print: function (ipAddress, macAddress, message, success, error) {
+        cordova.exec(success, error, 'BrotherLabelPrinter', 'getNetworkedPrinters', [
+            ipAddress,
+            macAddress,
+            message
+        ]);
     }
 };
