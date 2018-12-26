@@ -41,12 +41,16 @@ public class BrotherLabelPrinter extends CordovaPlugin {
 
     private void SetPrinterModel(String model, final CallbackContext callback) {
         if (model == null) {
-            callback.error(false);
+            PluginResult result;
+            result = new PluginResult(PluginResult.Status.ERROR);
+            callback.sendPluginResult(result);
             return;
         }
         
         modelName = model;
-        callback.success(true);
+
+        result = new PluginResult(PluginResult.Status.OK);
+        callback.sendPluginResult(result);
     }
 
     private void GetNetworkedPrinters(final CallbackContext callback) {
