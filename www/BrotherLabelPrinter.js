@@ -6,7 +6,7 @@ module.exports = {
     },
 
     print: function (ipAddress, macAddress, message, success, error) {
-        cordova.exec(success, error, 'BrotherLabelPrinter', 'getNetworkedPrinters', [
+        cordova.exec(success, error, 'BrotherLabelPrinter', 'print', [
             ipAddress,
             macAddress,
             message
