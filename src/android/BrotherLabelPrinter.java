@@ -171,7 +171,7 @@ public class BrotherLabelPrinter extends CordovaPlugin {
                             jsonPrinter.put("macAddress", netPrinters[i].macAddress);
                             jsonPrinter.put("serialNumber", netPrinters[i].serNo);
                             jsonPrinter.put("nodeName", netPrinters[i].nodeName);
-                            args.add(jsonPrinter);
+                            args.put(jsonPrinter);
 
                             netPrinter.put("ipAddress", netPrinters[i].ipAddress);
                             netPrinter.put("macAddress", netPrinters[i].macAddress);
