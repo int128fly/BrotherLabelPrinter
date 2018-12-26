@@ -161,10 +161,7 @@ public class BrotherLabelPrinter extends CordovaPlugin {
                         NetPrinter[] netPrinters = myPrinter.getNetPrinters(model);
                         int netPrinterCount = netPrinters.length;
 
-                        ArrayList<Map> netPrintersList = null;
-                        if(netPrintersList != null) netPrintersList.clear();
-                        netPrintersList = new ArrayList<Map>();
-
+                        ArrayList<Map> netPrintersList = new ArrayList<Map>();
                         for (int i = 0; i < netPrinterCount; i++) {
                             Map<String, String> netPrinter = new HashMap<String, String>();
 
@@ -178,9 +175,7 @@ public class BrotherLabelPrinter extends CordovaPlugin {
 
                         JSONArray args = new JSONArray();
 
-                        Boolean available = netPrinterCount > 0;
-                        args.put(available);
-                        args.put(netPrintersList);
+                        args.set(netPrintersList);
 
                         PluginResult result;
                         result = new PluginResult(PluginResult.Status.OK, args);
