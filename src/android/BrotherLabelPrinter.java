@@ -43,7 +43,8 @@ public class BrotherLabelPrinter extends CordovaPlugin {
     @Override
     public boolean execute(String action, JSONArray args, CallbackContext callback) throws JSONException {
         if (action.equals("getNetworkedPrinters")) {
-            this.getNetworkedPrinters(callback);
+            String model = args.getString(0);
+            this.getNetworkedPrinters(model, callback);
             return true;
         }
 
