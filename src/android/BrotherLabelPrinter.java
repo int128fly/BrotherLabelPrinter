@@ -100,7 +100,7 @@ public class BrotherLabelPrinter extends CordovaPlugin {
                         String labelWidth = "" + printer.getLabelParam().labelWidth;
                         String paperWidth = "" + printer.getLabelParam().paperWidth;
                         
-                        PrinterStatus status = myPrinter.printImage(bitmap);
+                        PrinterStatus status = printer.printImage(bitmap);
 
                         PluginResult result;
                         result = new PluginResult(PluginResult.Status.OK);
