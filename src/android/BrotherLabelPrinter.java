@@ -145,6 +145,7 @@ public class BrotherLabelPrinter extends CordovaPlugin {
     }*/
 
     private void getNetworkedPrinters(String model, final CallbackContext callback) {
+        PluginResult result;
         if (model == null) {
             result = new PluginResult(PluginResult.Status.ERROR);
             callback.sendPluginResult(result);
@@ -176,7 +177,6 @@ public class BrotherLabelPrinter extends CordovaPlugin {
                         }
 
                         JSONArray args = new JSONArray();
-                        PluginResult result;
 
                         Boolean available = netPrinterCount > 0;
                         args.put(available);
