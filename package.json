@@ -14,7 +14,9 @@
     "brother",
     "printer",
     "label",
-    "printer"
+    "print",
+    "ecosystem:cordova",
+    "cordova-android"
   ],
   "author": "Mathias Beaulieu-Duncan",
   "license": "ISC",
