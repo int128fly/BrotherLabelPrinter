@@ -12,22 +12,10 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONException;
 
-import android.app.Activity;
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
-import android.graphics.Picture;
-import android.os.Handler;
 import android.util.Base64;
 import android.util.Log;
-import android.view.View;
-import android.view.ViewGroup;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
 
 import com.brother.ptouch.sdk.LabelInfo;
 import com.brother.ptouch.sdk.NetPrinter;
@@ -63,7 +51,7 @@ public class BrotherLabelPrinter extends CordovaPlugin {
         try {
             byte[] bytes = Base64.decode(base64, Base64.DEFAULT);
             return BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-        } catch(Exception e){    
+        } catch(Exception e){
             e.printStackTrace();
             return null;
         }
@@ -78,29 +66,33 @@ public class BrotherLabelPrinter extends CordovaPlugin {
                     try {
                         Printer printer = new Printer();
                         PrinterInfo printerInfo = new PrinterInfo();
+                        printerInfo = printer.getPrinterInfo();
 
                         printerInfo.printerModel  = PrinterInfo.Model.QL_810W;
                         printerInfo.port          = PrinterInfo.Port.NET;
-                        printerInfo.ipAddress     = ipAddress;
-                        printerInfo.macAddress    = macAddress;
                         printerInfo.printMode     = PrinterInfo.PrintMode.ORIGINAL;
                         printerInfo.orientation   = PrinterInfo.Orientation.PORTRAIT;
                         printerInfo.paperSize     = PrinterInfo.PaperSize.CUSTOM;
-                        
+                        printerInfo.isAutoCut     = true;
+                        printerInfo.ipAddress     = ipAddress;
+                        printerInfo.macAddress    = macAddress;
+
+                        // ----> for brother developers team support <----
+                        // the ip address and mac address are correctly set
+                        // it crash everytime at this call, I tried allot of different configuration
                         printer.setPrinterInfo(printerInfo);
-      
-                        LabelInfo labelInfo = new LabelInfo();
+
+                        /*LabelInfo labelInfo = new LabelInfo();
                         labelInfo.labelNameIndex  = printer.checkLabelInPrinter();
                         labelInfo.isAutoCut       = true;
                         labelInfo.isEndCut        = true;
-                        labelInfo.isHalfCut       = false;
-                        labelInfo.isSpecialTape   = false;
+                        //labelInfo.isHalfCut       = false;
+                        //labelInfo.isSpecialTape   = false;
 
-                        printer.setLabelInfo(labelInfo);
+                        printer.setLabelInfo(labelInfo);*/
 
-                        String labelWidth = "" + printer.getLabelParam().labelWidth;
-                        String paperWidth = "" + printer.getLabelParam().paperWidth;
-                        
+
+
                         PrinterStatus status = printer.printImage(bitmap);
 
                         PluginResult result;
@@ -133,8 +125,8 @@ public class BrotherLabelPrinter extends CordovaPlugin {
                         printerInfo.printMode     = PrinterInfo.PrintMode.ORIGINAL;
                         printerInfo.orientation   = PrinterInfo.Orientation.PORTRAIT;
                         printerInfo.paperSize     = PrinterInfo.PaperSize.CUSTOM;
-      
-                        
+
+
                     } catch(Exception exception) {
                         PluginResult result;
                         result = new PluginResult(PluginResult.Status.ERROR, exception.getMessage());
