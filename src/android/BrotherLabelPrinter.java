@@ -3,6 +3,7 @@ package com.marketucan.plugins;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.io.File;
 
 import org.apache.cordova.CordovaPlugin;
 import org.apache.cordova.CallbackContext;
@@ -12,6 +13,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONException;
 
+import android.os.Environment;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Base64;
@@ -58,7 +60,8 @@ public class BrotherLabelPrinter extends CordovaPlugin {
     }
 
     private void print(String ipAddress, String macAddress, String message, final CallbackContext callback) {
-        final Bitmap bitmap = bmpFromBase64(message);
+
+        //final Bitmap bitmap = bmpFromBase64(Environment.getDataDirectory() + "/Screenshot_2018-06-22-10-09-44.png");
 
         cordova.getThreadPool().execute(
             new Runnable() {
@@ -75,7 +78,7 @@ public class BrotherLabelPrinter extends CordovaPlugin {
                         printerInfo.paperSize     = PrinterInfo.PaperSize.CUSTOM;
                         printerInfo.isAutoCut     = true;
                         printerInfo.ipAddress     = ipAddress;
-                        //printerInfo.macAddress    = macAddress;
+                        printerInfo.macAddress    = macAddress;
                         printerInfo.labelNameIndex = LabelInfo.QL700.W62RB.ordinal();
 
                         // ----> for brother developers team support <----
@@ -83,18 +86,28 @@ public class BrotherLabelPrinter extends CordovaPlugin {
                         // it crash everytime at this call, I tried allot of different configuration
                         printer.setPrinterInfo(printerInfo);
 
-                        /*LabelInfo labelInfo = new LabelInfo();
+                        LabelInfo labelInfo = new LabelInfo();
                         labelInfo.labelNameIndex  = printer.checkLabelInPrinter();
                         labelInfo.isAutoCut       = true;
                         labelInfo.isEndCut        = true;
-                        //labelInfo.isHalfCut       = false;
-                        //labelInfo.isSpecialTape   = false;
+                        labelInfo.isHalfCut       = false;
+                        labelInfo.isSpecialTape   = false;
 
-                        printer.setLabelInfo(labelInfo);*/
+                        printer.setLabelInfo(labelInfo);
+
+                        String labelWidth = ""+printer.getLabelParam().labelWidth;
+                        String paperWidth = ""+printer.getLabelParam().paperWidth;
+                        Log.d("BLP", "paperWidth = " + paperWidth);
+                        Log.d("BLP", "labelWidth = " + labelWidth);
 
 
+                        String path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).getAbsolutePath();
+                        PrinterStatus status = printer.printFile(path + "/Screenshots/Screenshot_2018-06-22-10-09-44.png");
 
-                        PrinterStatus status = printer.printImage(bitmap);
+                        String status_code = ""+status.errorCode;
+
+                        Log.d("BLP", "PrinterStatus: "+status_code);
+
 
                         PluginResult result;
                         result = new PluginResult(PluginResult.Status.OK);
