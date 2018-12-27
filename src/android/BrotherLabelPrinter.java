@@ -75,12 +75,24 @@ public class BrotherLabelPrinter extends CordovaPlugin {
                         printerInfo.paperSize     = PrinterInfo.PaperSize.CUSTOM;
                         printerInfo.isAutoCut     = true;
                         printerInfo.ipAddress     = ipAddress;
-                        printerInfo.macAddress    = macAddress;
+                        //printerInfo.macAddress    = macAddress;
+                        printerInfo.labelNameIndex = LabelInfo.QL700.W62RB.ordinal();
 
                         // ----> for brother developers team support <----
                         // the ip address and mac address are correctly set
                         // it crash everytime at this call, I tried allot of different configuration
                         printer.setPrinterInfo(printerInfo);
+
+                        /*LabelInfo labelInfo = new LabelInfo();
+                        labelInfo.labelNameIndex  = printer.checkLabelInPrinter();
+                        labelInfo.isAutoCut       = true;
+                        labelInfo.isEndCut        = true;
+                        //labelInfo.isHalfCut       = false;
+                        //labelInfo.isSpecialTape   = false;
+
+                        printer.setLabelInfo(labelInfo);*/
+
+
 
                         PrinterStatus status = printer.printImage(bitmap);
 
@@ -95,6 +107,35 @@ public class BrotherLabelPrinter extends CordovaPlugin {
                 }
             });
     }
+
+    /*private void print(JSONObject printOptions, final callbackContext callback) {
+        cordova.getThreadPool().execute(
+            new Runnable() {
+                public void run() {
+                    try {
+
+                        (JSONObject)printerConfig.get("printer");
+
+                        Printer printer = new Printer();
+                        PrinterInfo printerInfo = new PrinterInfo();
+
+                        printerInfo.printerModel  = PrinterInfo.Model.QL_810W;
+                        printerInfo.port          = PrinterInfo.Port.NET;
+                        printerInfo.ipAddress     = ipAddress;
+                        printerInfo.macAddress    = macAddress;
+                        printerInfo.printMode     = PrinterInfo.PrintMode.ORIGINAL;
+                        printerInfo.orientation   = PrinterInfo.Orientation.PORTRAIT;
+                        printerInfo.paperSize     = PrinterInfo.PaperSize.CUSTOM;
+
+
+                    } catch(Exception exception) {
+                        PluginResult result;
+                        result = new PluginResult(PluginResult.Status.ERROR, exception.getMessage());
+                        callback.sendPluginResult(result);
+                    }
+                }
+            });
+    }*/
 
     private void getNetworkedPrinters(String model, final CallbackContext callback) {
         PluginResult result;
