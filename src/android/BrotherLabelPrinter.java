@@ -29,7 +29,6 @@ import com.brother.ptouch.sdk.PrinterStatus;
  * This class echoes a string called from JavaScript.
  */
 public class BrotherLabelPrinter extends CordovaPlugin {
-
     @Override
     public boolean execute(String action, JSONArray args, CallbackContext callback) throws JSONException {
         if (action.equals("getNetworkedPrinters")) {
@@ -49,20 +48,19 @@ public class BrotherLabelPrinter extends CordovaPlugin {
         return false;
     }
 
-    public static Bitmap bmpFromBase64(String base64) {
-        try {
+    public static Bitmap bitmapFromBase64(String base64){
+        try{
+            base64 = base64.substring(base64.indexOf(",")  + 1);
             byte[] bytes = Base64.decode(base64, Base64.DEFAULT);
-            return BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-        } catch(Exception e){
-            e.printStackTrace();
+            Bitmap image = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+            return image;
+        } catch(Exception exception){
+            exception.printStackTrace();
             return null;
         }
     }
 
     private void print(String ipAddress, String macAddress, String message, final CallbackContext callback) {
-
-        //final Bitmap bitmap = bmpFromBase64(Environment.getDataDirectory() + "/Screenshot_2018-06-22-10-09-44.png");
-
         cordova.getThreadPool().execute(
             new Runnable() {
                 public void run() {
@@ -73,41 +71,24 @@ public class BrotherLabelPrinter extends CordovaPlugin {
 
                         printerInfo.printerModel  = PrinterInfo.Model.QL_810W;
                         printerInfo.port          = PrinterInfo.Port.NET;
-                        printerInfo.printMode     = PrinterInfo.PrintMode.ORIGINAL;
-                        printerInfo.orientation   = PrinterInfo.Orientation.PORTRAIT;
+                        printerInfo.printMode     = PrinterInfo.PrintMode.FIT_TO_PAGE;
+                        printerInfo.orientation   = PrinterInfo.Orientation.LANDSCAPE;
                         printerInfo.paperSize     = PrinterInfo.PaperSize.CUSTOM;
                         printerInfo.isAutoCut     = true;
+                        printerInfo.isCutAtEnd    = true;
                         printerInfo.ipAddress     = ipAddress;
                         printerInfo.macAddress    = macAddress;
-                        printerInfo.labelNameIndex = LabelInfo.QL700.W62RB.ordinal();
+                        printerInfo.labelNameIndex = LabelInfo.QL700.W29H90.ordinal();
 
-                        // ----> for brother developers team support <----
-                        // the ip address and mac address are correctly set
-                        // it crash everytime at this call, I tried allot of different configuration
                         printer.setPrinterInfo(printerInfo);
 
-                        LabelInfo labelInfo = new LabelInfo();
-                        labelInfo.labelNameIndex  = printer.checkLabelInPrinter();
-                        labelInfo.isAutoCut       = true;
-                        labelInfo.isEndCut        = true;
-                        labelInfo.isHalfCut       = false;
-                        labelInfo.isSpecialTape   = false;
+                        Bitmap image = bitmapFromBase64(message);
+                        if (image == null) {
+                          throw new Exception("Failed to convert base64 to bitmap.");
+                        }
 
-                        printer.setLabelInfo(labelInfo);
-
-                        String labelWidth = ""+printer.getLabelParam().labelWidth;
-                        String paperWidth = ""+printer.getLabelParam().paperWidth;
-                        Log.d("BLP", "paperWidth = " + paperWidth);
-                        Log.d("BLP", "labelWidth = " + labelWidth);
-
-
-                        String path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).getAbsolutePath();
-                        PrinterStatus status = printer.printFile(path + "/Screenshots/Screenshot_2018-06-22-10-09-44.png");
-
-                        String status_code = ""+status.errorCode;
-
-                        Log.d("BLP", "PrinterStatus: "+status_code);
-
+                        PrinterStatus status = printer.printImage(image);
+                        String status_code = "" + status.errorCode;
 
                         PluginResult result;
                         result = new PluginResult(PluginResult.Status.OK);
@@ -120,35 +101,6 @@ public class BrotherLabelPrinter extends CordovaPlugin {
                 }
             });
     }
-
-    /*private void print(JSONObject printOptions, final callbackContext callback) {
-        cordova.getThreadPool().execute(
-            new Runnable() {
-                public void run() {
-                    try {
-
-                        (JSONObject)printerConfig.get("printer");
-
-                        Printer printer = new Printer();
-                        PrinterInfo printerInfo = new PrinterInfo();
-
-                        printerInfo.printerModel  = PrinterInfo.Model.QL_810W;
-                        printerInfo.port          = PrinterInfo.Port.NET;
-                        printerInfo.ipAddress     = ipAddress;
-                        printerInfo.macAddress    = macAddress;
-                        printerInfo.printMode     = PrinterInfo.PrintMode.ORIGINAL;
-                        printerInfo.orientation   = PrinterInfo.Orientation.PORTRAIT;
-                        printerInfo.paperSize     = PrinterInfo.PaperSize.CUSTOM;
-
-
-                    } catch(Exception exception) {
-                        PluginResult result;
-                        result = new PluginResult(PluginResult.Status.ERROR, exception.getMessage());
-                        callback.sendPluginResult(result);
-                    }
-                }
-            });
-    }*/
 
     private void getNetworkedPrinters(String model, final CallbackContext callback) {
         PluginResult result;
